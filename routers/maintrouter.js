@@ -20,7 +20,7 @@ router.route("/patient/logout").post(adminLogout);
 router.route("/patient/patientmyprofile").get(isAuthenticatedAdmin, PatientMyprofile);
 
 router.route("/patient/updateprofile/:id").put(updateAdminProfile).delete(deleteAdmin);
-router.route("/patient/deleteProfile/:id").delete(deleteAdmin);
+// router.route("/patient/deleteProfile/:id").delete(deleteAdmin);
 
 
 router.route("/patient/addreview/:id").put(isAuthenticatedAdmin, createDoctorReview);
