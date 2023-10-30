@@ -4,6 +4,7 @@ const { newbooking, getSingleBooking, myorders, mybookings, updatemybooking, Upd
 const { registerDoctor, doctors, createClinic, createDoctorReview, doctorLogout, loginDoctor, getDoctorReviews, getDoctorClinic, updateDoctorProfile, deleteReview, deleteClinic, myprofile, getMyClinic, updateClinic, getMyReviews, createImage, updateDoctorPic, DoctorSearch, DoctorSearch2, getMyReviewsDoctor, deleteReviewDoctor } = require("../controller/doctorController");
 const { isAuthenticatedAdmin } = require("../middleware/auth");
 const { isAuthenticatedDoctor } = require("../middleware/authDoctor");
+const { Addtestlist, Cartest, deleteCart, MyCart, updateTestDetails, bookTests, MyBooking, updateBooking } = require("../controller/Labtestcontroller");
 // const { MyImage } = require("../myimage");
 ;
 //const { isAuthenticatedAdmin } = require("../middleware/auth");
@@ -82,4 +83,19 @@ router.route("/patient/history/:id").get(BookingHistory);
 //search Doctor by Thei details
 router.route("/patient/DoctorSearch/:key").get(DoctorSearch);
 router.route("/patient/DoctorSearch2").get(DoctorSearch2);
+
+
+
+
+// Test Routers
+router.route("/Labtest/Addtestlist").post(Addtestlist);
+router.route("/Labtest/UpdateTestdetails/:id").put(isAuthenticatedAdmin,updateTestDetails);
+router.route("/Labtest/addcart").post(isAuthenticatedAdmin,Cartest);
+router.route("/Labtest/Mycart").get(isAuthenticatedAdmin,MyCart);
+router.route("/Labtest/deleteCart/:id").delete(isAuthenticatedAdmin,deleteCart);
+
+router.route("/Labtest/booktest").post(isAuthenticatedAdmin,bookTests);
+router.route("/Labtest/MyBooking").get(isAuthenticatedAdmin,MyBooking);
+router.route("/Labtest/updateBooking/:id").put(isAuthenticatedAdmin,updateBooking);
+
 module.exports = router;
