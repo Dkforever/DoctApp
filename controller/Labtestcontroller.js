@@ -28,6 +28,18 @@ exports.Addtestlist = catchAsyncErrors(async (req, res, next) => {
 })  
 
 
+// Avalale Test List
+exports.Testlist = catchAsyncErrors(async (req, res, next) => {
+  const labtest = await Labtest.find(); 
+
+  if (!labtest || labtest.length === 0) {
+    return next(
+      new ErrorHandler(`No items found in the cart`, 404) // Adjust the error message and status code
+    );
+  }
+
+  res.status(200).json(labtest);
+});
 
 // Update Test Profile List
 
@@ -231,4 +243,6 @@ exports.MyBooking = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json(cart);
 });
+
+
 
