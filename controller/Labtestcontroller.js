@@ -102,7 +102,7 @@ exports.updateTestDetails = catchAsyncErrors(async (req, res, next) => {
   
 
 exports.Cartest = catchAsyncErrors(async (req, res, next) => {
-  const { Testname, Testprice, TestDetail, user } = req.body;
+  const { Testname, Testprice, TestDetail, user,Discount } = req.body;
 
   // Check if the item already exists in the cart
   const existingCartItem = await AddCart.findOne({
@@ -121,6 +121,7 @@ exports.Cartest = catchAsyncErrors(async (req, res, next) => {
       Testname,
       Testprice,
       TestDetail,
+      Discount,
       user: req.admin._id,
       quantity: 1, // Initialize the quantity to 1
     });
