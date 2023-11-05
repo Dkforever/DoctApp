@@ -13,7 +13,10 @@ const cartTestschema = mongoose.Schema({
     TestDetail: {
       type: String,
     },
-   
+    Discount:{
+      type: Number,
+      default: 0,
+    },
  
     user: {
       type: mongoose.Schema.ObjectId,

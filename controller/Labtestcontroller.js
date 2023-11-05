@@ -120,8 +120,8 @@ exports.Cartest = catchAsyncErrors(async (req, res, next) => {
     const newCartItem = await AddCart.create({
       Testname,
       Testprice,
-      TestDetail,
       Discount,
+      TestDetail,
       user: req.admin._id,
       quantity: 1, // Initialize the quantity to 1
     });
