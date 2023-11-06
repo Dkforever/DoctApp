@@ -10,6 +10,7 @@ const Admin = require("../models/admin");
 
 
 const sendToken = require("../utils/jwToken");
+const { uploader1 } = require("../ImageUpload");
 exports.Addtestlist = catchAsyncErrors(async (req, res, next) => {
  
     const {Testname,Testprice,TestDetail,Discount} = req.body;
@@ -173,34 +174,81 @@ exports.deleteCart = catchAsyncErrors(async (req, res, next) => {
 
 // Booked Tests by patients
 
+// exports.bookTests = catchAsyncErrors(async (req, res, next) => {
+
+//   const uploadSingle = uploader1().single("file");
+//   uploadSingle(req, res, async (err) => {
+//     if (err) {
+//       return res.status(400).json({ error: err.message });
+//     }
+
+//     if (!req.file) {
+//       return res.status(400).json({ error: "No file was uploaded." });
+//     }
+
+
+//   const prescriptionpic = req.file.location;
+  
+
+
+//   try {
+//     const { userId,Patientname,Address,mobilenumber,bookedTests, } = req.body; // Assuming you have a user ID and a list of test IDs in the request body
+
+    
+//     // Create a new booking entry with the user and the selected tests
+//     const bookedTest = await Testbooked.create({
+//       userId: req.admin._id,
+//       Patientname,
+//       Address,
+//       mobilenumber,
+//       bookedTests,
+//       prescriptionpic,
+
+//     });
+
+//     res.status(201).json({ success: true, data: bookedTest });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ success: false, message: 'Error booking tests' });
+//   }
+// })
+// });
+
+
+
+
 exports.bookTests = catchAsyncErrors(async (req, res, next) => {
-  try {
-    const { userId, tests,bookedTests } = req.body; // Assuming you have a user ID and a list of test IDs in the request body
 
-    // Fetch the user and tests from the database
-    // const user = await Admin.findById(userId);
-    // const selectedTests = await Labtest.find({ _id: { $in: tests } });
+  // Assume you still want to handle the file upload, so you can keep this part
+  const uploadSingle = uploader1().single("file");
+  uploadSingle(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ error: err.message });
+    }
 
-    // if ( !selectedTests.length) {
-    //   return res.status(404).json({ success: false, message: 'User or selected tests not found' });
-    // }
+    const prescriptionpic = req.file ? req.file.location : null; // Use the uploaded file location if it exists
 
-    // Create a new booking entry with the user and the selected tests
-    const bookedTest = await Testbooked.create({
-      userId: req.admin._id,
-      bookedTests,
-      // bookedTests: selectedTests.map((testId) => ({
-      //   test: testId,
-      //   quantity: 1, // You can adjust the quantity as needed
-      // })),
-    });
+    try {
+      const { userId, Patientname, Address, mobilenumber, bookedTests } = req.body; // Assuming you have a user ID and a list of test IDs in the request body
 
-    res.status(201).json({ success: true, data: bookedTest });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: 'Error booking tests' });
-  }
+      // Create a new booking entry with the user and the selected tests
+      const bookedTest = await Testbooked.create({
+        userId: req.admin._id,
+        Patientname,
+        Address,
+        mobilenumber,
+        bookedTests,
+        prescriptionpic, // Use the uploaded file location or null
+      });
+
+      res.status(201).json({ success: true, data: bookedTest });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: 'Error booking tests' });
+    }
+  });
 });
+
 
 
 

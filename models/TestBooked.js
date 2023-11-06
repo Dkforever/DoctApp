@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Admin = require("../models/admin");
 const Labtest = require("../models/Labtest");
+
 //add to cart lab test
 const BookedTestschema = mongoose.Schema({
 
@@ -13,6 +14,22 @@ const BookedTestschema = mongoose.Schema({
         type: String,
         default:"pending",
     },
+    Patientname:{
+        type: String,
+
+    },
+    Address:{
+        type: String,
+    },
+    mobilenumber:{
+        type : String,
+    },
+    prescriptionpic:{
+        type:String,
+        //  required: true,
+        //  default:"ImageUrl"
+      },
+    
     bookedTests: [
         {
             testId: {
