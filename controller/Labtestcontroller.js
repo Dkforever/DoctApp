@@ -7,10 +7,11 @@ const Testbooked = require("../models/TestBooked")
 const Admin = require("../models/admin");
 
 
-
-
 const sendToken = require("../utils/jwToken");
 const { uploader1 } = require("../ImageUpload");
+
+
+
 exports.Addtestlist = catchAsyncErrors(async (req, res, next) => {
  
     const {Testname,Testprice,TestDetail,Discount} = req.body;
@@ -103,7 +104,7 @@ exports.updateTestDetails = catchAsyncErrors(async (req, res, next) => {
   
 
 exports.Cartest = catchAsyncErrors(async (req, res, next) => {
-  const { Testname, Testprice, TestDetail, user,Discount } = req.body;
+  const { Testname, Testprice, TestDetail,TestId, user,Discount } = req.body;
 
   // Check if the item already exists in the cart
   const existingCartItem = await AddCart.findOne({
@@ -123,7 +124,9 @@ exports.Cartest = catchAsyncErrors(async (req, res, next) => {
       Testprice,
       Discount,
       TestDetail,
+      TestId,
       user: req.admin._id,
+      
       quantity: 1, // Initialize the quantity to 1
     });
 
@@ -229,7 +232,7 @@ exports.bookTests = catchAsyncErrors(async (req, res, next) => {
     const prescriptionpic = req.file ? req.file.location : null; // Use the uploaded file location if it exists
 
     try {
-      const { userId, Patientname, Address, mobilenumber, bookedTests } = req.body; // Assuming you have a user ID and a list of test IDs in the request body
+      const { Patientname, Address, mobilenumber, bookedTests } = req.body; // Assuming you have a user ID and a list of test IDs in the request body
 
       // Create a new booking entry with the user and the selected tests
       const bookedTest = await Testbooked.create({

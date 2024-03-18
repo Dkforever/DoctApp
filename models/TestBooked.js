@@ -1,15 +1,14 @@
 const mongoose = require("mongoose");
 const Admin = require("../models/admin");
 const Labtest = require("../models/Labtest");
-
 //add to cart lab test
 const BookedTestschema = mongoose.Schema({
 
-    userId: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Admin",
-        //  required: true,
-    },
+    // userId: {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: "Admin",
+    //     //  required: true,
+    // },
     status:{
         type: String,
         default:"pending",
@@ -27,7 +26,7 @@ const BookedTestschema = mongoose.Schema({
     prescriptionpic:{
         type:String,
         //  required: true,
-        //  default:"ImageUrl"
+         default:"ImageUrl"
       },
     
     bookedTests: [
@@ -35,7 +34,7 @@ const BookedTestschema = mongoose.Schema({
             testId: {
                 type: mongoose.Schema.ObjectId,
                 ref: 'Labtest', // Reference to a Test model representing the test to be booked
-                 required: true,
+                //  required: true,
             },
             Testname: {
                 type: String,

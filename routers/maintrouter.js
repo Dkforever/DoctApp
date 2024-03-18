@@ -96,6 +96,7 @@ router.route("/Labtest/Mycart").get(isAuthenticatedAdmin,MyCart);
 router.route("/Labtest/deleteCart/:id").delete(isAuthenticatedAdmin,deleteCart);
 
 router.route("/Labtest/booktest").post(isAuthenticatedAdmin,bookTests);
+// router.route("/Labtest/booktest").post(isAuthenticatedAdmin,bookTests);
 router.route("/Labtest/MyBooking").get(isAuthenticatedAdmin,MyBooking);
 router.route("/Labtest/updateBooking/:id").put(isAuthenticatedAdmin,updateBooking);
 
